@@ -76,7 +76,6 @@ persons_dict = {
 }
 
 
-
 person_1_name = input("Please enter name for person 1:\n").lower()
 persons_dict["name1"] = person_1_name
 
@@ -85,7 +84,7 @@ persons_dict["age1"] = person_1_age
 
 person_1_shoe_size = int(input("Please enter shoe size for person 1:\n"))
 persons_dict["shoe_size1"] = person_1_shoe_size
-# collecting information from user input and assigning it to each dictonary key, for person 1
+# collecting information from user input and assigning it to each dictionary key, for person 1
 
 print(persons_dict)
 
@@ -98,7 +97,7 @@ persons_dict["age2"] = person_2_age
 
 person_2_shoe_size = int(input("Please enter shoe size for person 2:\n"))
 persons_dict["shoe_size2"] = person_2_shoe_size
-# collecting information from user input and assigning it to each dictonary key, for person 2
+# collecting information from user input and assigning it to each dictionary key, for person 2
 
 
 print(persons_dict)
@@ -112,7 +111,7 @@ persons_dict["age3"] = person_3_age
 
 person_3_shoe_size = int(input("Please enter shoe size for person 3:\n"))
 persons_dict["shoe_size3"] = person_3_shoe_size
-# collecting information from user input and assigning it to each dictonary key, for person 3
+# collecting information from user input and assigning it to each dictionary key, for person 3
 
 
 print(persons_dict)
