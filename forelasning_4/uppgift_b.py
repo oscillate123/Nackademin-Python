@@ -117,3 +117,16 @@ persons_dict["shoe_size3"] = person_3_shoe_size
 print(persons_dict)
 
 
+if persons_dict["age1"] > persons_dict["age2"] & persons_dict["age1"] > persons_dict["age3"]:
+    name1 = persons_dict["name1"].title()
+    shoe_size1 = persons_dict["shoe_size1"]
+    print(f"The oldest person is {name1} who has shoe size {shoe_size1}")
+elif persons_dict["age2"] > persons_dict["age1"] & persons_dict["age2"] > persons_dict["age3"]:
+    name2 = persons_dict["name2"].title()
+    shoe_size2 = persons_dict["shoe_size2"]
+    print(f"The oldest person is {name2} who has shoe size {shoe_size2}")
+else:
+    name3 = persons_dict["name3"].title()
+    shoe_size3 = persons_dict["shoe_size3"]
+    print(f"The oldest person is {name3} who has shoe size {shoe_size3}")
+
