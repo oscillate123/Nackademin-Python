@@ -95,8 +95,20 @@ print(unionen)
 
 # 15 fråga läraren om skillnad mellan symmetrisk differens och differens
 
-differensen = numbers1 - numbers2
+korsning = numbers1 & numbers2
 
-symmetrisk_differens = unionen - differensen
+symmetrisk_differens = unionen - korsning
 
 print(symmetrisk_differens)
+
+# eller i en "oneliner"
+
+symmetrisk_differens2 = (numbers1 | numbers2) - (numbers1 & numbers2)
+
+print(symmetrisk_differens2)
+
+# variant på 15, som är effektivare
+
+sym_dif_func_in_pyth = numbers1.symmetric_difference(numbers2)
+
+print(sym_dif_func_in_pyth)
