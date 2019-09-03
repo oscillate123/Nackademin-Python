@@ -47,7 +47,7 @@ shoe_size[3] = person_3_shoe_size
 # age_sorted = sorted(age.values(), reverse=True)
 
 
-# print(names[1])
+# print(name[1])
 # print(age[1])
 # print(shoe_size[1])
 
@@ -69,4 +69,4 @@ print(f"{names[2]} {age[2]} {shoe_size[2]}")
 
 # age = {v: k for k, v in age.items()}
 
-# print(f"{names}\n{age}\n{shoe_size}")
+# print(f"{name}\n{age}\n{shoe_size}")
