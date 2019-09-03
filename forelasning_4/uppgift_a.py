@@ -20,7 +20,7 @@ numbers2 = {Y, 2, 3, 4, 7}
 print(addresses["Bella"])
 
 # 4. Vad händer om man skriver: addresses[“Daniel”] = “Prinsgränd 2”​
-# Värdet tillhörande nyckeln "Daniel" till "Prinsgränd 2"
+# Värdet tillhörande nyckeln "Daniel" till "Prinsgränd 2" läggs till i dic addressess
 
 # 5.
 print(len(addresses.keys()))
