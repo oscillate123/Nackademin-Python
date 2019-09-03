@@ -74,11 +74,11 @@ print(f"The person with median shoe size is {name[temp_key_2].title()} who is {a
 #           $age
 #           $shoe_size
 
-search_input = input("Please enter search value, name, age or size followed by value.\n")
+# search_input = input("Please enter search value, name, age or size followed by value.\n")
 
-search_list = search_input.split(" ")
+# search_list = search_input.split(" ")
 
-print(search_list)
+# print(search_list)
 
 cmd1 = "age" # search_list[0]
 cmd2 = "22" # search_list[1]
@@ -86,11 +86,11 @@ cmd2 = "22" # search_list[1]
 # print(cmd1)
 # print(cmd2)
 
-dictionary = {'age' : 22, 'name': "oscar"}
+dictionary = {'age': 22, 'name': "oscar"}
 
 # search_age = raw_input("Provide age")
 
 for key, value in dictionary.items():    # for name, age in dictionary.iteritems():  (for Python 2.x)
     if key == cmd1:
         if cmd2 == value:
-            print(key + value)
+            print(f"key + value")
