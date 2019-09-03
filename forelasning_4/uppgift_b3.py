@@ -47,6 +47,23 @@ shoe_size[3] = person_3_shoe_size
 age_twist = {v: k for k, v in age.items()}
 age_keys = sorted(age_twist, reverse=True)
 highest_age_key = age_twist[age_keys[0]]
-p_key = highest_age_key
+temp_key_1 = highest_age_key
 
-print(f"The oldest person is {names[p_key]} who has shoe size {shoe_size[p_key]}")
+print(f"The oldest person is {names[temp_key_1].title()} who has shoe size {shoe_size[temp_key_1]}")
+
+
+shoe_size_twist = {v: k for k, v in shoe_size.items()}
+shoe_size_keys = sorted(shoe_size_twist)
+ssk_len = len(shoe_size_keys)
+ssk_median = int(ssk_len / 2)
+shoe_size_median = shoe_size_twist[shoe_size_keys[ssk_median]]
+temp_key_2 = shoe_size_median
+
+print(f"The person with median shoe size is {names[temp_key_2].title()} who is {age[temp_key_2]} years old")
+
+# print(f"Please enter search value, name, age or size followed by value. i.e. 'age david'' - and remove quation
+# marks.")
+
+# print(f"Found person")
+
+print(f"")
