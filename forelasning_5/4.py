@@ -19,3 +19,5 @@ for number in numbers:
     else:
         print("Not allowed!")
         break
+
+# [print(x) for x in numbers if (x % 2) != 0]
