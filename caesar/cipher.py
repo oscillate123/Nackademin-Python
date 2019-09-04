@@ -36,9 +36,11 @@ def getKey():
 
 
 def getTranslatedMessage(mode, message, key):
+
+    translated = ''
+
     if mode[0] == 'd':
         key = -key
-    translated = ''
 
     for symbol in message:
         symbolIndex = SYMBOLS.find(symbol)
