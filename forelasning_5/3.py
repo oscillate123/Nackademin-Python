@@ -1,7 +1,3 @@
-# user_input = int(input("Enter an integer: "))
-
-# if user_input != user_input:
-
 INTEGER = 97
 x = True
 
