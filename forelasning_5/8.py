@@ -27,5 +27,6 @@ while i < 100:
     if isPrime:  # flag check
         print(i)
 
-    # print("\n" + "_________")
     i += 1
+
+# 78499
