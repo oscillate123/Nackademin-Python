@@ -11,13 +11,13 @@ i = 1
 
 while i < 100:
     # print i if i is prime
+    # between i and 99
 
     isPrime = True  # flag
     x = 2
+    # prime's are always divisible by 1, therefor we don't have to test it
 
     while (i / 2) >= x:
-        # print(f" i -> {i}")
-        # print(f" x -> {x}")
 
         if i % x == 0:
             isPrime = False  # raise flag
