@@ -17,12 +17,19 @@ my_randoms=[]
 while len(my_randoms) < 20:
     x = random.randrange(1, 100, 1)
     if (x % 2) != 0:
-        my_randoms.append(x)
+        if x not in my_randoms:
+            my_randoms.append(x)
+    my_randoms.sort()
 
-print(len(my_randoms))
-print(my_randoms)
 
+user_number = input("Provide an integer: ")
 
-userInput = input("Please type an integer: ")
+while user_number.isdecimal() is not True:
+    user_number = input("Provide an integer: ")
 
+user_number = int(user_number)
+
+for number in my_randoms:
+    if number < user_number:
+        print(number)
 
