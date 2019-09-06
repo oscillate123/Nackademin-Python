@@ -12,7 +12,7 @@ användarens angivna värde
 """
 import random
 
-my_randoms=[]
+my_randoms = []
 
 while len(my_randoms) < 20:
     x = random.randrange(1, 100, 1)
