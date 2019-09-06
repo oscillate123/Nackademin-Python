@@ -17,6 +17,3 @@ def function_name(argument1, argument2, argument3):
 
 print(function_name(1, 2, 3))
 print(argument4)
-
-
-tony.twumasi@gmail.com
