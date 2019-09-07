@@ -11,4 +11,11 @@ Expected Result : black-green-red-white-yellow
 
 
 def hype():
-    user_input = 
+    user_input = input("some text please: ")
+
+    listing = user_input.split("-")
+    listing.sort()
+    print("-".join(listing))
+
+
+hype()
