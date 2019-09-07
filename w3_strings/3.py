@@ -4,7 +4,7 @@ from a given a string.
 If the string length is less than 2, return instead of the empty string.
 Sample String : 'w3resource'
 Expected Result : 'w3ce'
-Sample String : 'w3'
+Sample String : 'w3_strings'
 Expected Result : 'w3w3'
 Sample String : ' w'
 Expected Result : Empty String
