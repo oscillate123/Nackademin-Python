@@ -1,0 +1,9 @@
+Debugging
+
+
+
+5. Programmet ska skriva ut ett informativt felmeddelande om angivet personnummer:
+1
+(a) Är för kort
+(b) Är för långt
+(c) Innehåller något annat än siror och bindestreck
