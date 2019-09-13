@@ -7,13 +7,14 @@ def getMode():
     while True:
         print('Do you wish to encrypt or decrypt a message?')
         mode = input().lower()
-        if mode in MODES:
-            return mode
-        elif mode == "no":
-            print('Ok, good bye "Brutus".')
-            exit()
-        else:
-            print(f'Enter either "{MODES[0]}" or "{MODES[1]}" or "{MODES[2]}" or "{MODES[3]}".')
+        return mode
+        # if mode in MODES:
+        #     return mode
+        # elif mode == "no":
+        #     print('Ok, good bye "Brutus".')
+        #     exit()
+        # else:
+        #     print(f'Enter either "{MODES[0]}" or "{MODES[1]}" or "{MODES[2]}" or "{MODES[3]}".')
 
 
 def getMessage():
@@ -60,8 +61,9 @@ def getTranslatedMessage(mode, message, key):
     return translated
 
 
-mode = getMode()
-message = getMessage()
-key = getKey()
-print('Your translated text is:')
-print(getTranslatedMessage(mode, message, key))
+if __name__ == "__main__":
+    mode = getMode()
+    message = getMessage()
+    key = getKey()
+    print('Your translated text is:')
+    print(getTranslatedMessage(mode, message, key))
