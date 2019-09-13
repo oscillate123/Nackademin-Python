@@ -2,7 +2,6 @@ import mysql.connector
 import ProgrammeringOchSystemering.caesar.cipher as c
 from mysql.connector import errorcode
 
-# try:
 
 try:
 
@@ -33,5 +32,3 @@ else:
     # print the first and second columns
     for row in cur.fetchall():
         print(row[0], " ", row[1], " ", row[2], " ", row[3])
-
-# testing
