@@ -33,3 +33,5 @@ else:
     # print the first and second columns
     for row in cur.fetchall():
         print(row[0], " ", row[1], " ", row[2], " ", row[3])
+
+# testing
