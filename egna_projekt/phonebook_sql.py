@@ -10,6 +10,8 @@ def add_query(first, last, phone, email, age):
     return cur.execute(query_string)
 
 
+
+
 try:
     my_db = mysql.connector.connect(
         host='localhost',

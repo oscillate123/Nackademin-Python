@@ -38,7 +38,9 @@ def phone_gui():
 
             return user_info
         elif value == "Cancel":
-            exit()
+            app.stop()
+        elif value == "Search":
+
 
     # WINDOW SETTINGS
     app.setTitle("  Phonebook")
@@ -66,7 +68,9 @@ def phone_gui():
     # SEARCH
     app.addLabel("search", "Search:", 1, 4)
     app.addEntry("search", 1, 5)
-    app.addLabel("search_empty", " ", 1, 6)
+    app.addLabel("search_empty4", " ", 1, 6)
+    app.addButton("Search", press, 1, 7)
+    app.addLabel("search_empty5", " ", 1, 8)
 
     # LAST NAME
     app.addLabel("last_name", "Last name:", 2, 0)
