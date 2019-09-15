@@ -5,6 +5,7 @@ def phone_gui():
     app = gui()
 
     user_info = []
+    user_search = []
 
     def press(value):
 
@@ -13,7 +14,7 @@ def phone_gui():
                                                 app.getEntry("last_name"),
                                                 app.getEntry("phone_number"),
                                                 app.getEntry("email_address"),
-                                                int(app.getEntry("age")))
+                                                app.getEntry("age"))
             user_info.append(first)
             user_info.append(last)
             user_info.append(phone)
@@ -40,7 +41,16 @@ def phone_gui():
         elif value == "Cancel":
             app.stop()
         elif value == "Search":
+            name_search = app.getEntry("search")
 
+            if " " in name_search:
+                print(name_search.split())
+                name_search = name_search.split()
+                for item in name_search:
+                    user_search.append(item)
+            else:
+                print(name_search)
+                user_search.append(name_search)
 
     # WINDOW SETTINGS
     app.setTitle("  Phonebook")
@@ -102,7 +112,7 @@ def phone_gui():
 
     app.go()
 
-    return user_info
+    return user_info, user_search
 
 
 if __name__ == "__main__":

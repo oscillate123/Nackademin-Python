@@ -31,7 +31,11 @@ except mysql.connector.Error as err:
 
 else:
     # Get user info from the GUI
-    user_info = gui.phone_gui()
+    gui_return = list(gui.phone_gui())
+
+    user_info = gui_return[0]
+
+    user_search = gui_return[1]
 
     # Create a Cursor object to execute queries.
     cur = my_db.cursor()
