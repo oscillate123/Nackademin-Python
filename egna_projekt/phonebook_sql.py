@@ -5,7 +5,7 @@ from mysql.connector import errorcode
 
 def add_query(first, last, phone, email, age):
     insert_string = "insert into contacts (first_name, last_name, phone_number, email_address, age) "
-    values_string = f"values ('{first}', '{last}', {phone}, '{email}', {age});"
+    values_string = f"values ('{first}', '{last}', '{phone}', '{email}', {age});"
     query_string = insert_string + str(values_string)
     return cur.execute(query_string)
 
