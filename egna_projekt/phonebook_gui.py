@@ -1,56 +1,52 @@
 from appJar import gui
+import pandas as pd
+import numpy as np
+import ProgrammeringOchSystemering.egna_projekt.phonebook_sql as sql
 
 
 def phone_gui():
     app = gui()
 
-    user_info = []
-    user_search = []
+    def ok_box(output):
+
+        app.setTitle("  Confirm message")
+        app.setTransparency(95)
+        app.setIcon(image="galaxy.ico")
+        app.setResizable(False)
+        app.setSize("200x150")
+
+        app.okBox("ok_box", output)
 
     def press(value):
 
         if value == "Add":
-            (first, last, phone, email, age) = (app.getEntry("first_name"),
-                                                app.getEntry("last_name"),
-                                                app.getEntry("phone_number"),
-                                                app.getEntry("email_address"),
-                                                app.getEntry("age"))
-            user_info.append(first)
-            user_info.append(last)
-            user_info.append(phone)
-            user_info.append(email)
-            user_info.append(age)
+            sql.add_execute(app.getEntry("first_name"),
+                            app.getEntry("last_name"),
+                            app.getEntry("phone_number"),
+                            app.getEntry("email_address"),
+                            app.getEntry("age"))
 
             app.clearAllEntries()
 
-            app.setTitle("  Confirm message")
-            app.setTransparency(95)
-            app.setIcon(image="galaxy.ico")
-            app.setResizable(False)
-            app.setSize("200x150")
+            ok_box("Contact added!")
 
-            app.okBox("ok_box", "Contact added!")
-
-            app.setTitle("  Phonebook")
-            app.setTransparency(95)
-            app.setIcon(image="galaxy.ico")
-            app.setResizable(True)
-            app.setSize("600x300")
-
-            return user_info
         elif value == "Cancel":
             app.stop()
-        elif value == "Search":
-            name_search = app.getEntry("search")
 
-            if " " in name_search:
-                print(name_search.split())
-                name_search = name_search.split()
-                for item in name_search:
-                    user_search.append(item)
-            else:
-                print(name_search)
-                user_search.append(name_search)
+        elif value == "Search":
+            result = sql.search_execute(app.getEntry("search_first"),
+                                        app.getEntry("search_last"),
+                                        app.getEntry("search_phone"),
+                                        app.getEntry("search_email"),
+                                        app.getEntry("search_age"))
+            result = list(result)
+            result_len = []
+            [result_len.append(i + 1) for i, v in enumerate(result)]
+            pd_df = pd.DataFrame(np.array([result]).reshape(len(result), 6),
+                                 index=result_len,
+                                 columns=sql.describe_contacts())
+            print(pd_df)
+
 
     # WINDOW SETTINGS
     app.setTitle("  Phonebook")
@@ -64,23 +60,10 @@ def phone_gui():
     app.addLabel("title_header", "ADD CONTACT", 0, 1)
     app.addLabel("title_empty2", " ", 0, 2)
 
-    # HEADER SEARCH
-    app.addLabel("search_empty1", " ", 0, 4)
-    app.addLabel("search_header", "SEARCH CONTACT", 0, 5)
-    app.addLabel("search_empty2", " ", 0, 6)
-    app.addLabel("search_empty3", " ", 0, 7)
-
     # FIRST NAME
     app.addLabel("first_name", "First name:", 1, 0)
     app.addEntry("first_name", 1, 1)
     app.addLabel("first_name_empty", " ", 1, 2)
-
-    # SEARCH
-    app.addLabel("search", "Search:", 1, 4)
-    app.addEntry("search", 1, 5)
-    app.addLabel("search_empty4", " ", 1, 6)
-    app.addButton("Search", press, 1, 7)
-    app.addLabel("search_empty5", " ", 1, 8)
 
     # LAST NAME
     app.addLabel("last_name", "Last name:", 2, 0)
@@ -107,13 +90,50 @@ def phone_gui():
     app.addLabel("empty2", " ", 6, 1)
     app.addLabel("empty3", " ", 6, 2)
 
-    # BUTTONS
+    # ADD BUTTONS
     app.addButtons(["Add", "Cancel"], press, 7, 1)
+
+    # HEADER SEARCH
+    app.addLabel("search_empty1", " ", 0, 4)
+    app.addLabel("search_header", "SEARCH CONTACT", 0, 5)
+    app.addLabel("search_empty2", " ", 0, 6)
+    app.addLabel("search_empty3", " ", 0, 7)
+
+    # SEARCH FIRST
+    app.addLabel("search_first", "First name:", 1, 4)
+    app.addEntry("search_first", 1, 5)
+    app.addLabel("search_empty4", " ", 1, 6)
+
+    # SEARCH LAST
+    app.addLabel("search_last", "Last name:", 2, 4)
+    app.addEntry("search_last", 2, 5)
+    app.addLabel("search_empty5", " ", 2, 6)
+
+    # SEARCH PHONE
+    app.addLabel("search_phone", "Phone:", 3, 4)
+    app.addEntry("search_phone", 3, 5)
+    app.addLabel("search_empty6", " ", 3, 6)
+
+    # SEARCH EMAIL
+    app.addLabel("search_email", "Email:", 4, 4)
+    app.addEntry("search_email", 4, 5)
+    app.addLabel("search_empty7", " ", 4, 6)
+
+    # SEARCH AGE
+    app.addLabel("search_age", "Age:", 5, 4)
+    app.addEntry("search_age", 5, 5)
+    app.addLabel("search_empty8", " ", 5, 6)
+
+    # EMPTY
+    app.addLabel("empty4", " ", 6, 3)
+    app.addLabel("empty5", " ", 6, 4)
+    app.addLabel("empty6", " ", 6, 5)
+
+    # ADD BUTTONS
+    app.addButton("Search", press, 7, 5)
 
     app.go()
 
-    return user_info, user_search
-
 
 if __name__ == "__main__":
-    print(phone_gui())
+    phone_gui()

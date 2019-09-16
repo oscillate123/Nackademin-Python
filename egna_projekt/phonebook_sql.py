@@ -1,53 +1,70 @@
 import mysql.connector
-import egna_projekt.phonebook_gui as gui
+import ProgrammeringOchSystemering.egna_projekt.phonebook_gui as gui
 from mysql.connector import errorcode
 
 
-def add_query(first, last, phone, email, age):
-    insert_string = "insert into contacts (first_name, last_name, phone_number, email_address, age) "
-    values_string = f"values ('{first}', '{last}', '{phone}', '{email}', {age});"
-    query_string = insert_string + str(values_string)
-    return cur.execute(query_string)
-
-
-
-
-try:
-    my_db = mysql.connector.connect(
+def sql_connect():
+    db = mysql.connector.connect(
         host='localhost',
         port='3306',
         user='root',
         password='ThinkVision.24',
         db='phonebook',
     )
+    return db
 
-except mysql.connector.Error as err:
-    if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-        print("Something is wrong with your user name or password")
-    elif err.errno == errorcode.ER_BAD_DB_ERROR:
-        print("Database does not exist")
-    else:
-        print(err)
 
-else:
-    # Get user info from the GUI
-    gui_return = list(gui.phone_gui())
+def add_execute(first, last, phone, email, age):
+    my_db = sql_connect()
+    cur = my_db.cursor()
+    insert_string = "insert into contacts (first_name, last_name, phone_number, email_address, age) "
+    values_string = f"values ('{first}', '{last}', '{phone}', '{email}', {age});"
+    query_string = insert_string + str(values_string)
+    print(query_string)
+    cur.execute(query_string)
+    my_db.commit()
+    return
 
-    user_info = gui_return[0]
 
-    user_search = gui_return[1]
-
-    # Create a Cursor object to execute queries.
+def search_execute(first, last, phone, email, age):
+    my_db = sql_connect()
     cur = my_db.cursor()
 
-    # Executing the query received from add_query. Functions add_query uses data from user_info list.
-    cur.execute(add_query(first=user_info[0],
-                          last=user_info[1],
-                          phone=user_info[2],
-                          email=user_info[3],
-                          age=user_info[4]))
-    my_db.commit()
+    query = (f"select * from contacts WHERE "
+             f"first_name LIKE '%{first}%' "
+             f"and last_name LIKE '%{last}%' "
+             f"and phone_number LIKE '%{phone}%' "
+             f"and email_address LIKE '%{email}%' "
+             f"and age LIKE '%{age}%';")
+    # print(query)
+    cur.execute(query)
+    search_result = cur.fetchall()
+    # print(search_result)
+    return search_result
 
-    # print the first and second columns
-    for row in cur.fetchall():
-        print(row)
+
+def describe_contacts():
+    my_db = sql_connect()
+    cur = my_db.cursor()
+    query = "describe contacts;"
+    cur.execute(query)
+    describe_result = cur.fetchall()
+    titles = []
+    [titles.append(row[0]) for row in describe_result]
+    return titles
+
+
+if __name__ == "__main__":
+    try:
+        my_db = sql_connect()
+
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with your user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
+
+    else:
+        gui.phone_gui()
