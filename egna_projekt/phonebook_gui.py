@@ -47,7 +47,6 @@ def phone_gui():
                                  columns=sql.describe_contacts())
             print(pd_df)
 
-
     # WINDOW SETTINGS
     app.setTitle("  Phonebook")
     app.setTransparency(95)
