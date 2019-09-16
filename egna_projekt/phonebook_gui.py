@@ -17,6 +17,26 @@ def phone_gui():
 
         app.okBox("ok_box", output)
 
+    def result_box():
+        # value will be 'Search'
+        result = sql.search_execute(app.getEntry("search_first"),
+                                    app.getEntry("search_last"),
+                                    app.getEntry("search_phone"),
+                                    app.getEntry("search_email"),
+                                    app.getEntry("search_age"))
+
+        result = list(result)
+
+        app.setTitle("  Confirm message")
+        app.setTransparency(95)
+        app.setIcon(image="galaxy.ico")
+        app.setResizable(False)
+        app.setSize("200x150")
+
+        app.startSubWindow("Search", modal=False)
+        app.addLabel("l2", str(result))
+        app.stopSubWindow()
+
     def press(value):
 
         if value == "Add":
@@ -34,18 +54,7 @@ def phone_gui():
             app.stop()
 
         elif value == "Search":
-            result = sql.search_execute(app.getEntry("search_first"),
-                                        app.getEntry("search_last"),
-                                        app.getEntry("search_phone"),
-                                        app.getEntry("search_email"),
-                                        app.getEntry("search_age"))
-            result = list(result)
-            result_len = []
-            [result_len.append(i + 1) for i, v in enumerate(result)]
-            pd_df = pd.DataFrame(np.array([result]).reshape(len(result), 6),
-                                 index=result_len,
-                                 columns=sql.describe_contacts())
-            print(pd_df)
+            result_box()
 
     # WINDOW SETTINGS
     app.setTitle("  Phonebook")
