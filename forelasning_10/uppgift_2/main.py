@@ -8,7 +8,7 @@ d. Efter var tionde match och efter den sista matchen för säsongen ska Table-
    instansen ombeds att skriva ut hela tabellställningen.
 """
 
-import forelasning_10.uppgift_2.team as t
+import ProgrammeringOchSystemering.forelasning_10.uppgift_2.team as t
 import csv
 
 
@@ -17,7 +17,7 @@ def read_file(file, type):
         reader = csv.reader(table)
         data = list(reader)
         if type == "team":
-            x = t.Team_Table(data)
+            x = t.TeamTable(data)
             print(x)
         elif type == "score":
             print(data)
@@ -26,3 +26,5 @@ def read_file(file, type):
 # read_file("teams.csv", "team")
 
 t.TeamTable("teams.csv")
+
+
