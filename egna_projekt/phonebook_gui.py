@@ -39,7 +39,6 @@ def phone_gui():
             items = list(items)
             i = 1
             for value in items:
-                print(value)
                 app.addLabel(f"{value}_{items[0]}", f"{value}", (row_index + 1), i)
                 i += 1
 
