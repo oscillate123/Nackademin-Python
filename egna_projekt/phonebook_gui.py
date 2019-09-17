@@ -16,7 +16,6 @@ def phone_gui():
         app.okBox("ok_box", output)
 
     def result_box():
-        # value will be 'Search'
         result = sql.search_execute(app.getEntry("search_first"),
                                     app.getEntry("search_last"),
                                     app.getEntry("search_phone"),
@@ -33,16 +32,16 @@ def phone_gui():
         app.showAllSubWindows()
         app.addLabel("result_empty", "      ", 0, 0)
 
-        for index, column in enumerate(sql.describe_contacts()):
-            app.addLabel(f"{index}_head", f"{column}", 0, (int(index) + 1))
-        for index, items in enumerate(result):
-            app.addLabel(f"{index}_info", f"{index + 1}", (int(index) + 1), 0)
+        for column_index, column in enumerate(sql.describe_contacts()):
+            app.addLabel(f"{column_index}_head", f"{column}", 0, (int(column_index) + 1))
+        for row_index, items in enumerate(result):
+            app.addLabel(f"{row_index}_info", f"{row_index + 1}", (int(row_index) + 1), 0)
+            items = list(items)
+            i = 1
             for value in items:
-                i = 1
-                app.addLabel(f"{value}_i", f"{value}", 1, i)
+                print(value)
+                app.addLabel(f"{value}_{items[0]}", f"{value}", (row_index + 1), i)
                 i += 1
-
-
 
         app.stopSubWindow()
 
