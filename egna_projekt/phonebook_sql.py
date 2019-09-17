@@ -1,5 +1,5 @@
 import mysql.connector
-import ProgrammeringOchSystemering.egna_projekt.phonebook_gui as gui
+import egna_projekt.phonebook_gui as gui
 from mysql.connector import errorcode
 
 

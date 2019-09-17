@@ -1,7 +1,5 @@
 from appJar import gui
-import pandas as pd
-import numpy as np
-import ProgrammeringOchSystemering.egna_projekt.phonebook_sql as sql
+import egna_projekt.phonebook_sql as sql
 
 
 def phone_gui():
@@ -25,8 +23,6 @@ def phone_gui():
                                     app.getEntry("search_email"),
                                     app.getEntry("search_age"))
 
-        result = list(result)
-
         app.setTitle("  Confirm message")
         app.setTransparency(95)
         app.setIcon(image="galaxy.ico")
@@ -34,7 +30,20 @@ def phone_gui():
         app.setSize("200x150")
 
         app.startSubWindow("Search", modal=False)
-        app.addLabel("l2", str(result))
+        app.showAllSubWindows()
+        app.addLabel("result_empty", "      ", 0, 0)
+
+        for index, column in enumerate(sql.describe_contacts()):
+            app.addLabel(f"{index}_head", f"{column}", 0, (int(index) + 1))
+        for index, items in enumerate(result):
+            app.addLabel(f"{index}_info", f"{index + 1}", (int(index) + 1), 0)
+            for value in items:
+                i = 1
+                app.addLabel(f"{value}_i", f"{value}", 1, i)
+                i += 1
+
+
+
         app.stopSubWindow()
 
     def press(value):
