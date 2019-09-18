@@ -1,67 +1,121 @@
 from appJar import gui
 import egna_projekt.phonebook_sql as sql
+import egna_projekt.phonebook_func as func
+import mysql.connector
+from mysql.connector import errorcode
 
 
 def phone_gui():
     app = gui()
 
     def ok_box(output):
+        app.okBox(" ", output)
 
-        app.setTitle("  Confirm message")
-        app.setTransparency(95)
-        app.setIcon(image="galaxy.ico")
-        app.setResizable(False)
-        app.setSize("200x150")
+    def error_box(error):
+        app.clearAllEntries()
+        ok_box(error)
 
-        app.okBox("ok_box", output)
+    def search_contact():
 
-    def result_box():
-        result = sql.search_execute(app.getEntry("search_first"),
-                                    app.getEntry("search_last"),
-                                    app.getEntry("search_phone"),
-                                    app.getEntry("search_email"),
-                                    app.getEntry("search_age"))
+        phone_entry = ""
+        age_entry = ""
+        try:
+            sql.sql_connect()
+            #  if user input is not empty, call function "is_entrytype_valid"
+            if app.getEntry("search_phone") != "":
+                phone_entry = func.is_number_valid(app.getEntry("search_phone"))
+            if app.getEntry("search_age") != "":
+                age_entry = func.is_age_valid(app.getEntry("search_age"))
+        except mysql.connector.Error as err:
+            if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+                ok_box("Something is wrong with your database user name or password")
+            elif err.errno == errorcode.ER_BAD_DB_ERROR:
+                ok_box("Database does not exist")
+            else:
+                ok_box(err)
+        except ValueError as error:
+            error_box(error)
+        else:
+            result = sql.search_execute(app.getEntry("search_first"),
+                                        app.getEntry("search_last"),
+                                        phone_entry,
+                                        app.getEntry("search_email"),
+                                        age_entry)
 
-        app.setTitle("  Confirm message")
-        app.setTransparency(95)
-        app.setIcon(image="galaxy.ico")
-        app.setResizable(False)
-        app.setSize("200x150")
+            app.startSubWindow("Search", modal=False)
+            app.showAllSubWindows()
+            app.addLabel("result_empty", "      ", 0, 0)
 
-        app.startSubWindow("Search", modal=False)
-        app.showAllSubWindows()
-        app.addLabel("result_empty", "      ", 0, 0)
+            for column_index, column in enumerate(sql.describe_contacts()):
+                app.addLabel(f"{column_index}_head", f"{column}", 0, (int(column_index) + 1))
+            for row_index, items in enumerate(result):
+                app.addLabel(f"{row_index}_info", f"{row_index + 1}", (int(row_index) + 1), 0)
+                items = list(items)
+                i = 1
+                for value in items:
+                    app.addLabel(f"{value}_{items[0]}", f"{value}", (row_index + 1), i)
+                    i += 1
 
-        for column_index, column in enumerate(sql.describe_contacts()):
-            app.addLabel(f"{column_index}_head", f"{column}", 0, (int(column_index) + 1))
-        for row_index, items in enumerate(result):
-            app.addLabel(f"{row_index}_info", f"{row_index + 1}", (int(row_index) + 1), 0)
-            items = list(items)
-            i = 1
-            for value in items:
-                app.addLabel(f"{value}_{items[0]}", f"{value}", (row_index + 1), i)
-                i += 1
+            app.stopSubWindow()
 
-        app.stopSubWindow()
+    def add_contact():
 
-    def press(value):
+        first_entry = ""
+        last_entry = ""
+        phone_entry = ""
+        email_entry = ""
+        age_entry = ""
 
-        if value == "Add":
-            sql.add_execute(app.getEntry("first_name"),
-                            app.getEntry("last_name"),
-                            app.getEntry("phone_number"),
+        try:
+            sql.sql_connect()
+            #  if user input is not empty, call function "is_entrytype_valid"
+            if app.getEntry("first_name") != "":
+                first_entry = app.getEntry("first_name")
+            else:
+                pass
+            if app.getEntry("last_name") != "":
+                last_entry = app.getEntry("last_name")
+            else:
+                pass
+
+            if app.getEntry("phone_number") != "":
+                phone_entry = func.is_number_valid(app.getEntry("search_phone"))
+            if app.getEntry("email_address") != "":
+                age_entry = func.is_email_valid(app.getEntry("email_address"))
+            if app.getEntry("age") != "":
+                age_entry = func.is_age_valid(app.getEntry("search_age"))
+
+        except mysql.connector.Error as err:
+            if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+                ok_box("Something is wrong with your database user name or password")
+            elif err.errno == errorcode.ER_BAD_DB_ERROR:
+                ok_box("Database does not exist")
+            else:
+                ok_box(err)
+
+        except ValueError as error:
+            error_box(error)
+
+        else:
+            sql.add_execute(first_entry,
+                            last_entry,
+                            phone_entry,
                             app.getEntry("email_address"),
-                            app.getEntry("age"))
+                            age_entry)
 
             app.clearAllEntries()
 
             ok_box("Contact added!")
 
+    def press(value):
+        if value == "Add":
+            add_contact()
+
         elif value == "Cancel":
             app.stop()
 
         elif value == "Search":
-            result_box()
+            search_contact()
 
     # WINDOW SETTINGS
     app.setTitle("  Phonebook")

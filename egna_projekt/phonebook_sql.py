@@ -65,6 +65,8 @@ if __name__ == "__main__":
             print("Database does not exist")
         else:
             print(err)
+    except ValueError as error:
+        print(error)
 
     else:
         gui.phone_gui()
