@@ -5,6 +5,9 @@ import mysql.connector
 from mysql.connector import errorcode
 
 
+search_contact_call_number = 0
+
+
 def phone_gui():
     app = gui()
 
@@ -16,6 +19,8 @@ def phone_gui():
         ok_box(error)
 
     def search_contact():
+
+        global search_contact_call_number
 
         phone_entry = ""
         age_entry = ""
@@ -42,21 +47,21 @@ def phone_gui():
                                         app.getEntry("search_email"),
                                         age_entry)
 
-            app.startSubWindow("Search", modal=False)
+            app.startSubWindow(f"search_{search_contact_call_number}", modal=True)
+            search_contact_call_number += 1
             app.showAllSubWindows()
-            app.addLabel("result_empty", "      ", 0, 0)
+            app.addLabel(f"result_empty_{search_contact_call_number}", "      ", 0, 0)
 
             for column_index, column in enumerate(sql.describe_contacts()):
-                app.addLabel(f"{column_index}_head", f"{column}", 0, (int(column_index) + 1))
+                app.addLabel(f"{column_index}_head_{search_contact_call_number}", f"{column}", 0, (int(column_index)
+                                                                                                    + 1))
             for row_index, items in enumerate(result):
-                app.addLabel(f"{row_index}_info", f"{row_index + 1}", (int(row_index) + 1), 0)
+                app.addLabel(f"{row_index}_info_{search_contact_call_number}", f"{row_index + 1}", (int(row_index) + 1), 0)
                 items = list(items)
                 i = 1
                 for value in items:
-                    app.addLabel(f"{value}_{items[0]}", f"{value}", (row_index + 1), i)
+                    app.addLabel(f"{value}_{items[0]}_{search_contact_call_number}", f"{value}", (row_index + 1), i)
                     i += 1
-
-            app.stopSubWindow()
 
     def add_contact():
 
@@ -68,22 +73,17 @@ def phone_gui():
 
         try:
             sql.sql_connect()
-            #  if user input is not empty, call function "is_entrytype_valid"
+            #  if user input is not empty, assign it to a variable
             if app.getEntry("first_name") != "":
                 first_entry = app.getEntry("first_name")
-            else:
-                pass
             if app.getEntry("last_name") != "":
                 last_entry = app.getEntry("last_name")
-            else:
-                pass
-
             if app.getEntry("phone_number") != "":
-                phone_entry = func.is_number_valid(app.getEntry("search_phone"))
+                phone_entry = func.is_number_valid(app.getEntry("phone_number"))
             if app.getEntry("email_address") != "":
                 age_entry = func.is_email_valid(app.getEntry("email_address"))
             if app.getEntry("age") != "":
-                age_entry = func.is_age_valid(app.getEntry("search_age"))
+                age_entry = func.is_age_valid(app.getEntry("age"))
 
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -97,10 +97,11 @@ def phone_gui():
             error_box(error)
 
         else:
+            # add new contact with the input we got from the user, it can be emtpy
             sql.add_execute(first_entry,
                             last_entry,
                             phone_entry,
-                            app.getEntry("email_address"),
+                            email_entry,
                             age_entry)
 
             app.clearAllEntries()

@@ -18,7 +18,7 @@ def add_execute(first, last, phone, email, age):
     my_db = sql_connect()
     cur = my_db.cursor()
     insert_string = "insert into contacts (first_name, last_name, phone_number, email_address, age) "
-    values_string = f"values ('{first}', '{last}', '{phone}', '{email}', {age});"
+    values_string = f"values ('{first}', '{last}', '{phone}', '{email}', '{age}');"
     query_string = insert_string + str(values_string)
     print(query_string)
     cur.execute(query_string)
