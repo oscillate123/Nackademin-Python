@@ -12,15 +12,17 @@ class CreateTeam:
         count = []
 
         for i in self.match_scores:
-            for match in i:
+            for idx, match in enumerate(i):
                 if match in count:
-                    count[i] += i[1]
-                    count.append("z")  # remove z
-                    print(match)
+                    # count[i] += i[1]
+                    #count.append()  # remove z
+                    print(f"{idx}  -  {match}")
                 else:
-                    count.append([match[0], match[1]])
+                    count.append([i[idx], i[match]])
 
-        return print(match)
+        print(count)
+
+        return
 
     def goal_diff(self):
         pass
