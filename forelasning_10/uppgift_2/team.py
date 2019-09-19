@@ -3,9 +3,8 @@ class Team:
         self.match = match
         self.team1 = match[1]
         self.team2 = match[2]
-        self.goal1 = match[3]
-        self.goal2 = match[4]
-        self.goal_diff = 0
+        self.goal1 = int(match[3])
+        self.goal2 = int(match[4])
 
     def counter(self):
         if self.goal1 > self.goal2:
@@ -17,13 +16,13 @@ class Team:
 
     def goal_difference(self):
         if self.goal1 > self.goal2:
-            self.goal_diff = self.goal1 - self.goal2
-            return self.goal_diff
+            return self.goal1 - self.goal2
         elif self.goal1 < self.goal2:
-            self.goal_diff = self.goal2 - self.goal1
-            return self.goal_diff
+
+            return self.goal2 - self.goal1
         else:
-            return self.goal_diff
+            return 0
 
     def printer(self):
-        return print(self.team1, self.team2, self.goal1, self.goal2)
+        pass
+        # return print(self.team1, self.team2, self.goal1, self.goal2)
