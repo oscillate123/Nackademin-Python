@@ -1,30 +1,19 @@
-"""
-a. Läsa in de två datafilerna.
-b. Initiera en Table-instans med en lista med de lagnamn givna av teams.csv 
-   som argument.
-c. Iterera igenom alla matcher i PL_1819.csv och lägga till dem en och en i 
-   Table-instansen så att denna kan uppdatera sina Team-instanser.
-d. Efter var tionde match och efter den sista matchen för säsongen ska Table-
-   instansen ombeds att skriva ut hela tabellställningen.
-"""
-
-import ProgrammeringOchSystemering.forelasning_10.uppgift_2.team as t
 import csv
+import forelasning_10.uppgift_2.team as team
+import forelasning_10.uppgift_2.table as tabell
+
+with open("PL_1819.csv", "r") as statistik:
+    reader = csv.reader(statistik)
+    data = list(reader)
+
+del data[0]
+
+x = team.Team(data[0])
+print(x.counter())
+print(x.goal_diff)
 
 
-def read_file(file, type):
-    with open(f"{file}", "r") as table:
-        reader = csv.reader(table)
-        data = list(reader)
-        if type == "team":
-            x = t.TeamTable(data)
-            print(x)
-        elif type == "score":
-            print(data)
-
-
-# read_file("teams.csv", "team")
-
-t.TeamTable("teams.csv")
-
+# for row in data:
+#     x = match.Team.printer(row)
+#     print(x)
 

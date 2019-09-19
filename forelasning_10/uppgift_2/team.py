@@ -1,32 +1,29 @@
-"""
-a. Initieras med en lista med ett lagnamn som ska sparas som ett klassattribut.
-b. Klassen ska även innehålla data om lagets poäng och målskillnad.
-c. Klassen ska ha en metod som kan användas till att uppdatera lagets data 
-   efter att en match har spelats. Om laget har vunnit ska poängen öka med 3, 
-   om matchen har slutat oavgjort ska poängen öka med 1 och vid förlust ska 
-   poängen förbli oförändrad.
-"""
-import csv
-import pandas as pd
-import numpy as np
+class Team:
+    def __init__(self, match):
+        self.match = match
+        self.team1 = match[1]
+        self.team2 = match[2]
+        self.goal1 = match[3]
+        self.goal2 = match[4]
+        self.goal_diff = 0
 
+    def counter(self):
+        if self.goal1 > self.goal2:
+            return self.team1
+        elif self.goal1 < self.goal2:
+            return self.team2
+        else:
+            return None
 
-class TeamTable:
-    def __init__(self, file):
-        self.file = file
-        with open(f"{file}", "r") as table:
-            reader = csv.reader(table)
-            data = list(reader)
+    def goal_difference(self):
+        if self.goal1 > self.goal2:
+            self.goal_diff = self.goal1 - self.goal2
+            return self.goal_diff
+        elif self.goal1 < self.goal2:
+            self.goal_diff = self.goal2 - self.goal1
+            return self.goal_diff
+        else:
+            return self.goal_diff
 
-        data = data[0]
-
-        column_types = ["Teams"]
-        list_idx = []
-
-        for i in range(len(data)):
-            list_idx.append(i + 1)
-
-        pd_df = pd.DataFrame(np.array([data]).reshape(len(data), 1), index=list_idx, columns=column_types)
-        print(pd_df)
-
-
+    def printer(self):
+        return print(self.team1, self.team2, self.goal1, self.goal2)
