@@ -4,7 +4,8 @@ import unittest
 
 class TestCase(unittest.TestCase):
 
-    def test_strip_century(self):
+    def test_stripCentury(self):
+        # TODO dependency - correct user input
         p_number = pnummer_control.user_input()
         the_func = pnummer_control.stripCentury(number=p_number)
         if len(p_number) > 10:
