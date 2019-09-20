@@ -1,3 +1,6 @@
+import unittest
+
+
 class Team:
     def __init__(self, match):
         self.match = match
@@ -26,3 +29,9 @@ class Team:
     def printer(self):
         pass
         # return print(self.team1, self.team2, self.goal1, self.goal2)
+
+
+if __name__ == "__main__":
+    x = Team(["datum", "lag1", "lag2", "4", "6"])
+    print(x.goal_difference())
+    print(x.counter())
