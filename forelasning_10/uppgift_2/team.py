@@ -2,18 +2,20 @@ import unittest
 
 
 class Team:
-    def __init__(self, match):
+    def __init__(self, match, team):
+        self.team = team
         self.match = match
-        self.team1 = match[1]
-        self.team2 = match[2]
+        self.match_team1 = match[1]
+        self.match_team2 = match[2]
         self.goal1 = int(match[3])
         self.goal2 = int(match[4])
 
     def counter(self):
+        # see who's the winner and returns the winning team, or None if no one won.
         if self.goal1 > self.goal2:
-            return self.team1
+            return self.match_team1
         elif self.goal1 < self.goal2:
-            return self.team2
+            return self.match_team2
         else:
             return None
 
@@ -28,7 +30,7 @@ class Team:
 
     def printer(self):
         pass
-        # return print(self.team1, self.team2, self.goal1, self.goal2)
+        # return print(self.match_team1, self.match_match_team2, self.goal1, self.goal2)
 
 
 if __name__ == "__main__":

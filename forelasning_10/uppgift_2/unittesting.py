@@ -6,7 +6,7 @@ import forelasning_10.uppgift_2.main as main_file
 class TestCase(unittest.TestCase):
 
     def test_Returning_team(self):
-        read_test = main_file.file_read("PL_1819.csv")
+        read_test = main_file.file_read_csv("PL_1819.csv")
         del read_test[0]
         for match in read_test:
             x = team_file.Team(match)
@@ -21,7 +21,6 @@ class TestCase(unittest.TestCase):
 
     def test_Table_maker(self):
         pass
-
 
 if __name__ == '__main__':
     unittest.main()

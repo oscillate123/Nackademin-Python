@@ -2,8 +2,11 @@ import csv
 import forelasning_10.uppgift_2.team as team
 import forelasning_10.uppgift_2.table as table
 
+table_list = []
 
-def file_read(file):
+
+def file_read_csv(file):
+    # read csv file
     with open(f"{file}", "r") as file:
         reader = csv.reader(file)
         data = list(reader)
@@ -11,7 +14,7 @@ def file_read(file):
     return data
 
 
-x = file_read("PL_1819.csv")
+x = file_read_csv("PL_1819.csv")
 del x[0]
 
 # y = team.Team(x[0])
