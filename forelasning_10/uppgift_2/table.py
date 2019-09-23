@@ -6,3 +6,4 @@ class Table:
         self.team_names = team_names
 
     def create_team(self, a_list):
+        pass
